@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>My Website</title>
+  <title>MoovieKoto Streaming</title>
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script defer src="js/home.js"></script>
@@ -13,8 +13,7 @@
     <img src="logo.png" alt="Logo" class="logo" />
     <div class="nav-links">
       <a href="index.html">Home</a>
-      <label for="search-bar" class="visually-hidden">Search</label>
-      <input type="text" class="search-bar" id="search-bar" name="search" placeholder="Search..." onfocus="openSearchModal()" />
+      <input type="text" class="search-bar" id="navbar-search" name="search" placeholder="Search..." onfocus="openSearchModal()" autocomplete="off" />
     </div>
   </div>
 
@@ -37,7 +36,7 @@
 
   <div class="modal" id="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeModal()" style="color: red;">&times;</span>
+      <button class="close" onclick="closeModal()" aria-label="Close">&times;</button>
       <div class="modal-body">
         <img id="modal-image" src="" alt="" />
         <div class="modal-text">
@@ -59,14 +58,14 @@
   </div>
 
   <div class="search-modal" id="search-modal">
-  <span class="close" onclick="closeSearchModal()" style="color: red;">&times;</span>
-  <input type="text" id="search-input" name="search-query" placeholder="Search for a movie or show..." oninput="searchTMDB()" />
-  <div class="results" id="search-results"></div>
-</div>
+    <button class="close" onclick="closeSearchModal()" aria-label="Close search">&times;</button>
+    <input type="text" id="search-input" name="search-query" placeholder="Search for a movie or show..." oninput="searchTMDB()" autocomplete="off" />
+    <div class="results" id="search-results"></div>
+  </div>
 
   <footer class="footer">
     <div class="footer-content">
-      <p>&copy; 2025 My Website. All rights reserved.</p>
+      <p>&copy; 2025 MoovieKoto. All rights reserved.</p>
       <div class="footer-links">
         <a href="#">Disclaimer</a>
         <a href="#">About Us</a>
@@ -74,20 +73,5 @@
       </div>
     </div>
   </footer>
-
-  <style>
-    .visually-hidden {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      border: 0;
-    }
-  </style>
 </body>
 </html>
-
-
