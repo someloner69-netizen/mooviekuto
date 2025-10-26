@@ -3,36 +3,44 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-  <title>MoovieKoto Streaming</title>
+  <title>MoovieKoto - Netflix Style</title>
   <link rel="stylesheet" href="css/home.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <script defer src="js/home.js"></script>
 </head>
 <body>
-  <div class="navbar">
+  <header class="navbar">
     <img src="logo.png" alt="Logo" class="logo" />
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <input type="text" class="search-bar" id="navbar-search" name="search" placeholder="Search..." onfocus="openSearchModal()" autocomplete="off" />
+    <nav>
+      <a href="index.html" class="nav-link active">Home</a>
+      <a href="#" class="nav-link">TV Shows</a>
+      <a href="#" class="nav-link">Movies</a>
+      <a href="#" class="nav-link">New & Popular</a>
+    </nav>
+    <input type="text" class="search-bar" id="navbar-search" name="search" placeholder="Search..." onfocus="openSearchModal()" autocomplete="off" />
+  </header>
+
+  <section class="hero-banner" id="banner">
+    <div class="hero-text">
+      <h1 id="banner-title"></h1>
+      <p id="banner-overview"></p>
     </div>
-  </div>
+  </section>
 
-  <div class="banner" id="banner">
-    <h1 id="banner-title"></h1>
-  </div>
-
-  <div class="row">
-    <h2>Trending Movies</h2>
-    <div class="list" id="movies-list"></div>
-  </div>
-  <div class="row">
-    <h2>Trending TV Shows</h2>
-    <div class="list" id="tvshows-list"></div>
-  </div>
-  <div class="row">
-    <h2>Trending Anime</h2>
-    <div class="list" id="anime-list"></div>
-  </div>
+  <main>
+    <section class="row">
+      <h2>Trending Now</h2>
+      <div class="list" id="movies-list"></div>
+    </section>
+    <section class="row">
+      <h2>TV Shows</h2>
+      <div class="list" id="tvshows-list"></div>
+    </section>
+    <section class="row">
+      <h2>Anime</h2>
+      <div class="list" id="anime-list"></div>
+    </section>
+  </main>
 
   <div class="modal" id="modal">
     <div class="modal-content">
