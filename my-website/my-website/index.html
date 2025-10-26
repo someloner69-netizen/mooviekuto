@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>MoovieKoto - Netflix Style</title>
-  <link rel="stylesheet" href="css/home.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
   <script defer src="js/home.js"></script>
 </head>
 <body>
@@ -17,7 +17,15 @@
       <a href="#" class="nav-link" id="nav-movies">Movies</a>
       <a href="#" class="nav-link" id="nav-popular">New & Popular</a>
     </nav>
-    <input type="text" class="search-bar" id="navbar-search" name="search" placeholder="Search..." onfocus="openSearchModal()" autocomplete="off" />
+    <input
+      type="text"
+      class="search-bar"
+      id="navbar-search"
+      name="search"
+      placeholder="Search..."
+      onfocus="openSearchModal()"
+      autocomplete="off"
+    />
   </header>
 
   <section class="hero-banner" id="banner">
@@ -67,7 +75,14 @@
 
   <div class="search-modal" id="search-modal">
     <button class="close" onclick="closeSearchModal()" aria-label="Close search">&times;</button>
-    <input type="text" id="search-input" name="search-query" placeholder="Search for a movie or show..." oninput="searchTMDB()" autocomplete="off" />
+    <input
+      type="text"
+      id="search-input"
+      name="search-query"
+      placeholder="Search for a movie or show..."
+      oninput="searchTMDB()"
+      autocomplete="off"
+    />
     <div class="results" id="search-results"></div>
   </div>
 
