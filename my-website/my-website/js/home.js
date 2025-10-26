@@ -25,12 +25,14 @@ async function fetchTrendingAnime() {
 function displayBanner(item) {
   const banner = document.getElementById('banner');
   if (item && item.backdrop_path) {
-    banner.style.backgroundImage = `url(${IMG_URL}${item.backdrop_path})`;
+    banner.style.backgroundImage = `linear-gradient(90deg,#181818 32%,rgba(20,20,20,0.22)),url(${IMG_URL}${item.backdrop_path})`;
   } else {
     banner.style.backgroundImage = 'none';
   }
   document.getElementById('banner-title').textContent = item?.title || item?.name || "";
+  document.getElementById('banner-overview').textContent = item?.overview || "";
 }
+
 
 function displayList(items, containerId) {
   const container = document.getElementById(containerId);
@@ -119,3 +121,4 @@ window.addEventListener('DOMContentLoaded', async () => {
   displayList(tvShows, 'tvshows-list');
   displayList(anime, 'anime-list');
 });
+
