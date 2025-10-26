@@ -1,6 +1,16 @@
+/* --- Optimized CSS Variables & Base Styles --- */
+:root {
+  --primary-red: #e50914; /* Netflix Red */
+  --bg-darkest: #141414;
+  --bg-darker: #181818;
+  --bg-dark: #222;
+  --text-light: #fff;
+  --text-mute: #ccc;
+}
+
 body {
-  background: #141414;
-  color: #fff;
+  background: var(--bg-darkest);
+  color: var(--text-light);
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -11,10 +21,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  background: #181818;
+  background: var(--bg-darker);
   padding: 0 4vw;
   height: 68px;
-  border-bottom: 3px solid #e50914;
+  border-bottom: 3px solid var(--primary-red);
   position: sticky;
   top: 0;
   width: 100vw;
@@ -29,7 +39,7 @@ body {
   gap: 32px;
 }
 .nav-link {
-  color: #ccc;
+  color: var(--text-mute);
   font-weight: 600;
   text-decoration: none;
   font-size: 1.11rem;
@@ -38,30 +48,27 @@ body {
 }
 .nav-link.active,
 .nav-link:hover {
-  color: #e50914;
+  color: var(--primary-red); /* Using CSS Variable */
 }
 .search-bar {
   margin-left: auto;
   padding: 8px 18px;
   border-radius: 20px;
   border: 2px solid #444;
-  background: #222;
-  color: #fff;
+  background: var(--bg-dark);
+  color: var(--text-light);
   outline: none;
 }
 
+/* --- Hero Section --- */
 .hero-banner,
 #banner {
   min-height: 46vh;
   width: 100vw;
   display: flex;
   align-items: flex-end;
-  background: linear-gradient(
-      to top,
-      rgba(20, 20, 20, 1) 0%,
-      rgba(20, 20, 20, 0.4) 80%
-    ),
-    var(--banner-img, #232323);
+  /* Use a consistent fallback for banner background */
+  background: var(--banner-img, var(--bg-dark)); 
   background-size: cover !important;
   background-position: center center;
   background-repeat: no-repeat !important;
@@ -80,7 +87,7 @@ body {
 .hero-text h1 {
   font-size: 2.55rem;
   font-weight: 900;
-  color: #fff;
+  color: var(--text-light);
   letter-spacing: 0.3px;
   margin-bottom: 10px;
   text-shadow: 0 5px 20px #000a;
@@ -93,6 +100,7 @@ body {
   font-weight: 400;
 }
 
+/* --- Content Rows --- */
 .row {
   margin: 32px 0 36px 0;
 }
@@ -117,7 +125,7 @@ body {
   width: 176px;
   height: 270px;
   object-fit: cover;
-  background: #232323;
+  background: var(--bg-dark);
   border-radius: 7px;
   box-shadow: 0 2px 20px 0 #0006;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -125,7 +133,7 @@ body {
 }
 .list img:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 10px #e50914;
+  box-shadow: 0 0 10px var(--primary-red);
   z-index: 2;
 }
 
@@ -136,12 +144,13 @@ body {
   left: 0;
   width: 50px;
   height: 100%;
-  background: linear-gradient(to right, rgba(20, 20, 20, 1), transparent);
+  /* Using CSS Variable for background color consistency */
+  background: linear-gradient(to right, var(--bg-darkest), transparent); 
   pointer-events: none;
   z-index: 5;
 }
 
-/* Modal and search styles */
+/* --- Optimized Modal and Search Styles (Fixing transition) --- */
 .modal,
 .search-modal {
   position: fixed;
@@ -152,9 +161,9 @@ body {
   width: 100vw;
   height: 100vh;
   background: rgba(20, 20, 20, 0.97);
+  /* Initially hidden and non-interactive */
   opacity: 0;
-  pointer-events: none;
-  display: flex;
+  display: none; 
   align-items: center;
   justify-content: center;
   z-index: 1000;
@@ -163,8 +172,9 @@ body {
 
 .modal.show,
 .search-modal.show {
+  /* Only show when the .show class is added by JS */
+  display: flex; 
   opacity: 1;
-  pointer-events: auto;
 }
 
 .modal-content {
@@ -174,7 +184,7 @@ body {
   width: 92vw;
   max-width: 600px;
   position: relative;
-  color: #fff;
+  color: var(--text-light);
   box-shadow: 0 12px 42px 0 #000b;
 }
 
@@ -183,7 +193,7 @@ body {
   top: 16px;
   right: 24px;
   font-size: 2.3rem;
-  color: #e50914;
+  color: var(--primary-red);
   background: none;
   border: none;
   cursor: pointer;
@@ -192,7 +202,7 @@ body {
 }
 
 .close:hover {
-  color: #fff;
+  color: var(--text-light);
 }
 
 #search-input,
@@ -201,9 +211,9 @@ body {
   width: 90vw;
   padding: 16px;
   border-radius: 8px;
-  border: 2px solid #fff;
-  background: #181818;
-  color: #fff;
+  border: 2px solid var(--text-light);
+  background: var(--bg-darker);
+  color: var(--text-light);
   font-size: 1.13rem;
   margin: 44px auto 10px auto;
   display: block;
@@ -211,7 +221,7 @@ body {
 }
 
 #search-input:focus {
-  border-color: #e50914;
+  border-color: var(--primary-red);
 }
 
 .search-modal .results {
@@ -224,9 +234,10 @@ body {
   justify-content: center;
 }
 
+/* --- Footer --- */
 .footer {
-  background: #181818;
-  color: #ccc;
+  background: var(--bg-darker);
+  color: var(--text-mute);
   padding: 18px 2vw;
   text-align: center;
   margin-top: 56px;
@@ -234,16 +245,17 @@ body {
 }
 
 .footer-links a {
-  color: #e50914;
+  color: var(--primary-red);
   margin: 0 11px;
   text-decoration: none;
   font-weight: 500;
 }
 
 .footer-links a:hover {
-  color: #fff;
+  color: var(--text-light);
 }
 
+/* --- Media Queries --- */
 @media (max-width: 950px) {
   .hero-text {
     max-width: 90vw;
