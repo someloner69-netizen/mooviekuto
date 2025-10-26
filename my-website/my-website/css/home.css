@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  font-family: 'Segoe UI', 'Poppins', Arial, sans-serif;
+  font-family: "Segoe UI", "Poppins", Arial, sans-serif;
 }
 
 .navbar {
@@ -22,14 +22,17 @@ body {
   width: 100vw;
   z-index: 10;
 }
+
 .logo {
   height: 44px;
   margin-right: 28px;
 }
+
 .navbar nav {
   display: flex;
   gap: 32px;
 }
+
 .nav-link {
   color: #ccc;
   font-weight: 600;
@@ -38,8 +41,12 @@ body {
   transition: color 0.2s;
   padding: 0 4px;
 }
+
 .nav-link.active,
-.nav-link:hover { color: #e50914; }
+.nav-link:hover {
+  color: #e50914;
+}
+
 .search-bar {
   margin-left: auto;
   padding: 8px 18px;
@@ -50,26 +57,35 @@ body {
   outline: none;
 }
 
-.hero-banner, #banner {
+.hero-banner,
+#banner {
   min-height: 46vh;
   width: 100vw;
   display: flex;
   align-items: flex-end;
-  background: linear-gradient(to top, rgba(20,20,20,1) 0%, rgba(20,20,20,0.4) 80%), var(--banner-img, #232323);
+  background: linear-gradient(
+      to top,
+      rgba(20, 20, 20, 1) 0%,
+      rgba(20, 20, 20, 0.4) 80%
+    ),
+    var(--banner-img, #232323);
   background-size: cover !important;
   background-position: center center;
   background-repeat: no-repeat !important;
   position: relative;
 }
 
-.hero-text, #banner .hero-text {
+.hero-text,
+#banner .hero-text {
   padding: 57px 62px 39px 62px;
-  background: rgba(15,15,18,0.70);
+  background: rgba(15, 15, 18, 0.7);
   border-radius: 0 0 18px 0;
   max-width: 580px;
   margin-bottom: 16px;
 }
-#banner-title, .hero-text h1 {
+
+#banner-title,
+.hero-text h1 {
   font-size: 2.55rem;
   font-weight: 900;
   color: #fff;
@@ -77,7 +93,9 @@ body {
   margin-bottom: 10px;
   text-shadow: 0 5px 20px #000a;
 }
-.hero-text p, #banner-overview {
+
+.hero-text p,
+#banner-overview {
   color: #efefef;
   margin-top: 15px;
   font-size: 1.21rem;
@@ -87,6 +105,7 @@ body {
 .row {
   margin: 32px 0 36px 0;
 }
+
 .row h2 {
   margin-left: 4vw;
   margin-bottom: 8px;
@@ -94,12 +113,14 @@ body {
   font-size: 1.23rem;
   font-weight: 700;
 }
+
 .list {
   display: flex;
   gap: 18px;
   overflow-x: auto;
   padding: 0 4vw 14px 4vw;
 }
+
 .list img {
   width: 176px;
   height: 270px;
@@ -108,7 +129,9 @@ body {
   border-radius: 7px;
   box-shadow: 0 2px 20px 0 #0006;
   transition: transform 0.23s, box-shadow 0.22s;
+  cursor: pointer;
 }
+
 .list img:hover {
   transform: scale(1.08);
   box-shadow: 0 2px 32px #e5091460;
@@ -116,9 +139,13 @@ body {
 }
 
 /* Modal and search styles ... */
-.modal, .search-modal {
+.modal,
+.search-modal {
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
   height: 100vh;
   background: rgba(20, 20, 20, 0.97);
@@ -127,6 +154,7 @@ body {
   justify-content: center;
   z-index: 1000;
 }
+
 .modal-content {
   background: #23232c;
   border-radius: 14px;
@@ -137,6 +165,7 @@ body {
   color: #fff;
   box-shadow: 0 12px 42px 0 #000b;
 }
+
 .close {
   position: absolute;
   top: 16px;
@@ -149,8 +178,13 @@ body {
   line-height: 1;
   z-index: 20;
 }
-.close:hover { color: #fff; }
-#search-input, .search-modal input {
+
+.close:hover {
+  color: #fff;
+}
+
+#search-input,
+.search-modal input {
   width: 350px;
   padding: 16px;
   border-radius: 8px;
@@ -162,7 +196,11 @@ body {
   display: block;
   outline: none;
 }
-#search-input:focus { border-color: #e50914; }
+
+#search-input:focus {
+  border-color: #e50914;
+}
+
 .search-modal .results {
   width: 94vw;
   max-width: 650px;
@@ -181,21 +219,42 @@ body {
   margin-top: 56px;
   border-top: 2px solid #2c2c2c;
 }
+
 .footer-links a {
   color: #e50914;
   margin: 0 11px;
   text-decoration: none;
   font-weight: 500;
 }
-.footer-links a:hover { color: #fff; }
+
+.footer-links a:hover {
+  color: #fff;
+}
 
 @media (max-width: 950px) {
-  .hero-text { max-width: 90vw; padding: 30px 8vw; }
-  .list img { width: 122px; }
+  .hero-text {
+    max-width: 90vw;
+    padding: 30px 8vw;
+  }
+  .list img {
+    width: 122px;
+  }
 }
+
 @media (max-width: 480px) {
-  .navbar, .footer { padding: 0 1vw;}
-  .hero-text { padding: 24px 3vw; }
-  .row h2 { font-size: 1.07rem; }
-  #search-input, .search-modal input { width: 92vw; font-size: 0.98rem; }
+  .navbar,
+  .footer {
+    padding: 0 1vw;
+  }
+  .hero-text {
+    padding: 24px 3vw;
+  }
+  .row h2 {
+    font-size: 1.07rem;
+  }
+  #search-input,
+  .search-modal input {
+    width: 92vw;
+    font-size: 0.98rem;
+  }
 }
