@@ -17,22 +17,17 @@ body {
   border-bottom: 3px solid #e50914;
   position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
   width: 100vw;
   z-index: 10;
 }
-
 .logo {
   height: 44px;
   margin-right: 28px;
 }
-
 .navbar nav {
   display: flex;
   gap: 32px;
 }
-
 .nav-link {
   color: #ccc;
   font-weight: 600;
@@ -41,12 +36,10 @@ body {
   transition: color 0.2s;
   padding: 0 4px;
 }
-
 .nav-link.active,
 .nav-link:hover {
   color: #e50914;
 }
-
 .search-bar {
   margin-left: auto;
   padding: 8px 18px;
@@ -83,7 +76,6 @@ body {
   max-width: 580px;
   margin-bottom: 16px;
 }
-
 #banner-title,
 .hero-text h1 {
   font-size: 2.55rem;
@@ -93,7 +85,6 @@ body {
   margin-bottom: 10px;
   text-shadow: 0 5px 20px #000a;
 }
-
 .hero-text p,
 #banner-overview {
   color: #efefef;
@@ -105,7 +96,6 @@ body {
 .row {
   margin: 32px 0 36px 0;
 }
-
 .row h2 {
   margin-left: 4vw;
   margin-bottom: 8px;
@@ -113,12 +103,14 @@ body {
   font-size: 1.23rem;
   font-weight: 700;
 }
-
 .list {
   display: flex;
   gap: 18px;
   overflow-x: auto;
   padding: 0 4vw 14px 4vw;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
 .list img {
@@ -128,17 +120,28 @@ body {
   background: #232323;
   border-radius: 7px;
   box-shadow: 0 2px 20px 0 #0006;
-  transition: transform 0.23s, box-shadow 0.22s;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
   cursor: pointer;
 }
-
 .list img:hover {
-  transform: scale(1.08);
-  box-shadow: 0 2px 32px #e5091460;
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #e50914;
   z-index: 2;
 }
 
-/* Modal and search styles ... */
+.list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 100%;
+  background: linear-gradient(to right, rgba(20, 20, 20, 1), transparent);
+  pointer-events: none;
+  z-index: 5;
+}
+
+/* Modal and search styles */
 .modal,
 .search-modal {
   position: fixed;
@@ -149,10 +152,19 @@ body {
   width: 100vw;
   height: 100vh;
   background: rgba(20, 20, 20, 0.97);
-  display: none;
+  opacity: 0;
+  pointer-events: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  transition: opacity 0.25s ease;
+}
+
+.modal.show,
+.search-modal.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .modal-content {
@@ -185,7 +197,8 @@ body {
 
 #search-input,
 .search-modal input {
-  width: 350px;
+  max-width: 600px;
+  width: 90vw;
   padding: 16px;
   border-radius: 8px;
   border: 2px solid #fff;
