@@ -1,6 +1,6 @@
 const API_KEY = '225a70afe36a3ba053130f7194015d1d';
 const BASE_URL = 'https://api.themoviedb.org/3';
-const IMG_URL = 'https://image.tmdb.org/t/p/w500'; // use /w500 for fast loading
+const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 let currentItem;
 
 async function fetchTrending(type) {
@@ -25,16 +25,17 @@ async function fetchTrendingAnime() {
 function displayBanner(item) {
   const banner = document.getElementById('banner');
   if (item && item.backdrop_path) {
-    banner.style.setProperty("background", 
-      `linear-gradient(to top,rgba(20,20,20,1) 0%,rgba(20,20,20,0.4) 70%),url(${IMG_URL}${item.backdrop_path}) center/cover no-repeat`);
+    banner.style.setProperty(
+      "background",
+      `linear-gradient(to top,rgba(20,20,20,1) 0%,rgba(20,20,20,0.4) 80%),url(${IMG_URL}${item.backdrop_path}) center/cover no-repeat`
+    );
     banner.style.setProperty("--banner-img", `url(${IMG_URL}${item.backdrop_path})`);
   } else {
     banner.style.background = '#232323';
   }
   document.getElementById('banner-title').textContent = item?.title || item?.name || "";
+  document.getElementById('banner-overview').textContent = item?.overview || "";
 }
-
-
 
 function displayList(items, containerId) {
   const container = document.getElementById(containerId);
@@ -55,7 +56,7 @@ function showDetails(item) {
   document.getElementById('modal-description').textContent = item.overview;
   document.getElementById('modal-image').src = item.poster_path
     ? `${IMG_URL}${item.poster_path}`
-    : 'fallback.jpg'; // Provide a fallback image in your root
+    : 'fallback.jpg';
   document.getElementById('modal-rating').innerHTML = '★'.repeat(Math.round(item.vote_average / 2));
   changeServer();
   document.getElementById('modal').style.display = 'flex';
@@ -113,7 +114,13 @@ async function searchTMDB() {
   });
 }
 
-window.addEventListener('DOMContentLoaded', async () => {
+/* Nav toggle logic for section filtering */
+function setActiveNav(navId) {
+  document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+  document.getElementById(navId).classList.add('active');
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
   const movies = await fetchTrending('movie');
   const tvShows = await fetchTrending('tv');
   const anime = await fetchTrendingAnime();
@@ -122,6 +129,34 @@ window.addEventListener('DOMContentLoaded', async () => {
   displayList(movies, 'movies-list');
   displayList(tvShows, 'tvshows-list');
   displayList(anime, 'anime-list');
+
+  // Navigation logic
+  document.getElementById('nav-home').onclick = e => {
+    e.preventDefault();
+    setActiveNav('nav-home');
+    document.getElementById('row-home').style.display = '';
+    document.getElementById('row-tv').style.display = '';
+    document.getElementById('row-anime').style.display = '';
+  };
+  document.getElementById('nav-tv').onclick = e => {
+    e.preventDefault();
+    setActiveNav('nav-tv');
+    document.getElementById('row-home').style.display = 'none';
+    document.getElementById('row-tv').style.display = '';
+    document.getElementById('row-anime').style.display = 'none';
+  };
+  document.getElementById('nav-movies').onclick = e => {
+    e.preventDefault();
+    setActiveNav('nav-movies');
+    document.getElementById('row-home').style.display = '';
+    document.getElementById('row-tv').style.display = 'none';
+    document.getElementById('row-anime').style.display = 'none';
+  };
+  document.getElementById('nav-popular').onclick = e => {
+    e.preventDefault();
+    setActiveNav('nav-popular');
+    document.getElementById('row-home').style.display = '';
+    document.getElementById('row-tv').style.display = 'none';
+    document.getElementById('row-anime').style.display = '';
+  };
 });
-
-
