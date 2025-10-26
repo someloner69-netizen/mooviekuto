@@ -107,40 +107,9 @@ body {
   font-size: 1rem;
   width: 100vw;
   margin: 0;
-  position: fixed;
-  bottom: 0;
-  left: 0;
+  /* remove position: fixed; bottom: 0; left: 0; */
 }
 
-.footer-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-}
-
-.footer-links {
-  display: flex;
-  gap: 18px;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.footer-links a {
-  color: #e50914;
-  text-decoration: none;
-  transition: color 0.2s;
-  font-weight: 500;
-}
-
-.footer-links a:hover {
-  color: #fff;
-}
-
-@media (max-width: 768px) {
-  .footer-content { font-size: 0.95rem; }
-  .footer-links { gap: 10px; }
-}
 
 
 /* Responsive fix */
@@ -149,5 +118,6 @@ body {
   .banner { padding: 20px; }
   .list img { width: 110px; }
 }
+
 
 
