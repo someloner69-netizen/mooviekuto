@@ -74,15 +74,15 @@ const API_KEY = '225a70afe36a3ba053130f7194015d1d';
       document.getElementById('modal-video').src = '';
     }
 
-    function openSearchModal() {
-      document.getElementById('search-modal').style.display = 'flex';
-      document.getElementById('search-input').focus();
-    }
+ function openSearchModal() {
+  document.getElementById('search-modal').style.display = 'flex';
+  document.getElementById('search-input').focus();
+}
 
-    function closeSearchModal() {
-      document.getElementById('search-modal').style.display = 'none';
-      document.getElementById('search-results').innerHTML = '';
-    }
+function closeSearchModal() {
+  document.getElementById('search-modal').style.display = 'none';
+  document.getElementById('search-results').innerHTML = '';
+}
 
     async function searchTMDB() {
       const query = document.getElementById('search-input').value;
@@ -122,4 +122,5 @@ const API_KEY = '225a70afe36a3ba053130f7194015d1d';
 
 
     init();
+
 
