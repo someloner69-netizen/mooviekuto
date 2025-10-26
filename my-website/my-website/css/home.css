@@ -17,6 +17,11 @@ body {
   font-family: "Segoe UI", "Poppins", Arial, sans-serif;
 }
 
+body.modal-open {
+  overflow: hidden;
+  height: 100vh;
+}
+
 .navbar {
   display: flex;
   align-items: center;
@@ -283,3 +288,4 @@ body {
     font-size: 0.98rem;
   }
 }
+
