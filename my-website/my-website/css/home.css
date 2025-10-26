@@ -24,6 +24,13 @@ body {
   padding: 5px;
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0,0,0,0);
+  border: 0;
+}
 
 .nav-links {
   display: flex;
@@ -118,6 +125,7 @@ body {
   .banner { padding: 20px; }
   .list img { width: 110px; }
 }
+
 
 
 
