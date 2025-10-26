@@ -160,3 +160,4 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('row-anime').style.display = '';
   };
 });
+
