@@ -12,10 +12,10 @@
   <header class="navbar">
     <img src="logo.png" alt="Logo" class="logo" />
     <nav>
-      <a href="index.html" class="nav-link active">Home</a>
-      <a href="#" class="nav-link">TV Shows</a>
-      <a href="#" class="nav-link">Movies</a>
-      <a href="#" class="nav-link">New & Popular</a>
+      <a href="#" class="nav-link active" id="nav-home">Home</a>
+      <a href="#" class="nav-link" id="nav-tv">TV Shows</a>
+      <a href="#" class="nav-link" id="nav-movies">Movies</a>
+      <a href="#" class="nav-link" id="nav-popular">New & Popular</a>
     </nav>
     <input type="text" class="search-bar" id="navbar-search" name="search" placeholder="Search..." onfocus="openSearchModal()" autocomplete="off" />
   </header>
@@ -28,15 +28,15 @@
   </section>
 
   <main>
-    <section class="row">
+    <section class="row" id="row-home">
       <h2>Trending Now</h2>
       <div class="list" id="movies-list"></div>
     </section>
-    <section class="row">
+    <section class="row" id="row-tv">
       <h2>TV Shows</h2>
       <div class="list" id="tvshows-list"></div>
     </section>
-    <section class="row">
+    <section class="row" id="row-anime">
       <h2>Anime</h2>
       <div class="list" id="anime-list"></div>
     </section>
