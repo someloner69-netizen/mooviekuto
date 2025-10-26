@@ -27,19 +27,20 @@ async function fetchData(url) {
   }
 }
 
-// Optimization: Combined functions into a single reusable one
+// Fetches trending movies or TV shows
 async function fetchTrending(type) {
   const data = await fetchData(`${BASE_URL}/trending/${type}/week?api_key=${API_KEY}`);
   return data.results || [];
 }
 
-// Optimization: Enhanced error handling in anime fetching
+// Fetches anime using the discover endpoint for better filtering
 async function fetchTrendingAnime() {
   let allResults = [];
   const fetchPromises = [];
   
   // Use Promise.all to fetch pages concurrently
   for (let page = 1; page <= 3; page++) {
+    // Using discover endpoint with genres and language filtering
     fetchPromises.push(fetchData(`${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=16&with_original_language=ja&sort_by=popularity.desc&page=${page}`));
   }
   
@@ -47,12 +48,10 @@ async function fetchTrendingAnime() {
   
   // Flatten and filter results
   results.forEach(data => {
-    // Note: Switched to discover endpoint for more precise filtering than trending.
-    // TMDB genre ID for 'Animation' is 16.
     allResults = allResults.concat(data.results || []);
   });
   
-  // Filter out duplicates based on id (common in multi-page fetching)
+  // Filter out duplicates based on id
   const uniqueAnime = Array.from(new Set(allResults.map(a => a.id)))
     .map(id => allResults.find(a => a.id === id));
     
@@ -65,7 +64,7 @@ function displayBanner(item) {
   
   if (item && item.backdrop_path) {
     const bannerUrl = `${IMG_URL}${item.backdrop_path}`;
-    // Optimization: Pre-load the image before setting the style for smoother transition
+    // Pre-load the image before setting the style for smoother transition
     const img = new Image();
     img.onload = () => {
         banner.style.setProperty(
@@ -88,7 +87,7 @@ function displayBanner(item) {
 
 function displayList(items, containerId) {
   const container = document.getElementById(containerId);
-  // Optimization: Use a document fragment for faster DOM manipulation
+  // Use a document fragment for faster DOM manipulation
   const fragment = document.createDocumentFragment();
   
   items.forEach(item => {
@@ -96,15 +95,13 @@ function displayList(items, containerId) {
     const img = document.createElement('img');
     img.src = `${IMG_URL}${item.poster_path}`;
     img.alt = item.title || item.name || 'Movie/TV Poster';
-    // Optimization: Added lazy loading for better performance
     img.loading = 'lazy'; 
-    // Optimization: Use event listeners in JS, not inline HTML
     img.addEventListener('click', () => showDetails(item));
     fragment.appendChild(img);
   });
   
-  container.innerHTML = ''; // Clear existing content
-  container.appendChild(fragment); // Append all new elements at once
+  container.innerHTML = ''; 
+  container.appendChild(fragment); 
 }
 
 function showDetails(item) {
@@ -120,17 +117,17 @@ function showDetails(item) {
   document.getElementById('modal-rating').innerHTML = '★'.repeat(ratingStars);
   document.getElementById('modal-rating').setAttribute('aria-label', `Rating: ${ratingStars} out of 5 stars`);
   
-  // Use a reliable default server if none is selected
   serverSelect.value = serverSelect.value || 'vidsrc.cc';
   updateEmbed();
   
-  // Optimization: Use class toggling for CSS transition
+  // FIX: Use class toggling for CSS transition and SCROLL LOCK
   modalElement.classList.add('show');
-  // Optional: Focus the close button for accessibility 
+  document.body.classList.add('modal-open'); 
+
   modalElement.querySelector('.close').focus(); 
 }
 
-// Optimization: Renamed for clarity, handles the server change logic
+// Handles the server change logic
 function updateEmbed() {
   if (!currentItem) return; 
   const server = serverSelect.value;
@@ -155,20 +152,26 @@ function updateEmbed() {
 }
 
 function closeModal() {
-  // Optimization: Use class toggling for CSS transition
+  // FIX: Use class toggling for CSS transition and SCROLL UNLOCK
   modalElement.classList.remove('show');
+  document.body.classList.remove('modal-open'); 
+
   document.getElementById('modal-video').src = ''; // Stop video playback
 }
 
 function openSearchModal() {
-  // Optimization: Use class toggling for CSS transition
+  // FIX: Use class toggling for CSS transition and SCROLL LOCK
   searchModalElement.classList.add('show');
+  document.body.classList.add('modal-open'); 
+
   searchInput.focus();
 }
 
 function closeSearchModal() {
-  // Optimization: Use class toggling for CSS transition
+  // FIX: Use class toggling for CSS transition and SCROLL UNLOCK
   searchModalElement.classList.remove('show');
+  document.body.classList.remove('modal-open'); 
+
   // Clear the search field and results when closing
   searchInput.value = '';
   searchResultsContainer.innerHTML = '';
@@ -176,9 +179,6 @@ function closeSearchModal() {
 
 /**
  * Debounce utility function to limit how often a function is called.
- * @param {Function} func - The function to debounce.
- * @param {number} delay - The delay in milliseconds.
- * @returns {Function} A debounced function.
  */
 function debounce(func, delay) {
   let timeout;
@@ -201,7 +201,6 @@ async function searchTMDB() {
   const fragment = document.createDocumentFragment();
   
   (data.results || []).forEach(item => {
-    // Filter out items without a poster or irrelevant media types
     if (!item.poster_path || (item.media_type !== 'movie' && item.media_type !== 'tv')) return;
     
     const img = document.createElement('img');
@@ -218,7 +217,7 @@ async function searchTMDB() {
   searchResultsContainer.appendChild(fragment);
 }
 
-// Optimization: Debounced search function to limit API calls
+// Debounced search function to limit API calls
 const debouncedSearch = debounce(searchTMDB, 300);
 
 /* Nav toggle logic for section filtering */
@@ -229,8 +228,6 @@ function setActiveNav(navId) {
 
 /**
  * Handles navigation clicks to toggle section visibility.
- * @param {string} targetId - The ID of the section to primarily show.
- * @param {Array<string>} showIds - Array of section IDs to display.
  */
 function handleNavClick(navId, showIds) {
   setActiveNav(navId);
@@ -242,7 +239,7 @@ function handleNavClick(navId, showIds) {
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-  // Optimization: Use Promise.all for concurrent data fetching
+  // Use Promise.all for concurrent data fetching
   const [movies, tvShows, anime] = await Promise.all([
     fetchTrending('movie'),
     fetchTrending('tv'),
@@ -259,7 +256,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // --- Event Listeners and Delegation ---
   
-  // Navbar search bar: open modal on focus or click
+  // Navbar search bar: open modal on focus
   document.getElementById('navbar-search').addEventListener('focus', openSearchModal);
   
   // Search input inside modal: call debounced search function
@@ -268,7 +265,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   // Modal server selector
   serverSelect.addEventListener('change', updateEmbed);
 
-  // Modal close buttons using event delegation
+  // Modal close buttons using event delegation (for the close buttons with data-action)
   document.addEventListener('click', (e) => {
       if (e.target.dataset.action === 'close-modal') {
           closeModal();
