@@ -24,6 +24,7 @@ body {
   padding: 5px;
 }
 
+
 .nav-links {
   display: flex;
   align-items: center;
@@ -109,3 +110,4 @@ body {
   .banner { padding: 20px; }
   .list img { width: 110px; }
 }
+
