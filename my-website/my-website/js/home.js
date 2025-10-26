@@ -1,7 +1,6 @@
 const API_KEY = '225a70afe36a3ba053130f7194015d1d';
 const BASE_URL = 'https://api.themoviedb.org/3';
 const IMG_URL = 'https://image.tmdb.org/t/p/w500';
-// Global variable for currently selected item, necessary for server change
 let currentItem = null; 
 const searchInput = document.getElementById('search-input');
 const searchResultsContainer = document.getElementById('search-results');
@@ -11,8 +10,6 @@ const serverSelect = document.getElementById('server');
 
 /**
  * Utility function for basic error handling during fetching.
- * @param {string} url - The URL to fetch.
- * @returns {Promise<any>} The JSON response data.
  */
 async function fetchData(url) {
   try {
@@ -27,31 +24,27 @@ async function fetchData(url) {
   }
 }
 
-// Fetches trending movies or TV shows
 async function fetchTrending(type) {
   const data = await fetchData(`${BASE_URL}/trending/${type}/week?api_key=${API_KEY}`);
   return data.results || [];
 }
 
-// Fetches anime using the discover endpoint for better filtering
 async function fetchTrendingAnime() {
   let allResults = [];
   const fetchPromises = [];
   
   // Use Promise.all to fetch pages concurrently
   for (let page = 1; page <= 3; page++) {
-    // Using discover endpoint with genres and language filtering
+    // Using discover endpoint for better anime filtering
     fetchPromises.push(fetchData(`${BASE_URL}/discover/tv?api_key=${API_KEY}&with_genres=16&with_original_language=ja&sort_by=popularity.desc&page=${page}`));
   }
   
   const results = await Promise.all(fetchPromises);
   
-  // Flatten and filter results
   results.forEach(data => {
     allResults = allResults.concat(data.results || []);
   });
   
-  // Filter out duplicates based on id
   const uniqueAnime = Array.from(new Set(allResults.map(a => a.id)))
     .map(id => allResults.find(a => a.id === id));
     
@@ -64,7 +57,6 @@ function displayBanner(item) {
   
   if (item && item.backdrop_path) {
     const bannerUrl = `${IMG_URL}${item.backdrop_path}`;
-    // Pre-load the image before setting the style for smoother transition
     const img = new Image();
     img.onload = () => {
         banner.style.setProperty(
@@ -87,7 +79,6 @@ function displayBanner(item) {
 
 function displayList(items, containerId) {
   const container = document.getElementById(containerId);
-  // Use a document fragment for faster DOM manipulation
   const fragment = document.createDocumentFragment();
   
   items.forEach(item => {
@@ -120,14 +111,13 @@ function showDetails(item) {
   serverSelect.value = serverSelect.value || 'vidsrc.cc';
   updateEmbed();
   
-  // FIX: Use class toggling for CSS transition and SCROLL LOCK
+  // FIX: Add class toggling for visibility and SCROLL LOCK
   modalElement.classList.add('show');
   document.body.classList.add('modal-open'); 
 
   modalElement.querySelector('.close').focus(); 
 }
 
-// Handles the server change logic
 function updateEmbed() {
   if (!currentItem) return; 
   const server = serverSelect.value;
@@ -139,7 +129,8 @@ function updateEmbed() {
       embedURL = `https://vidsrc.cc/v2/embed/${type}/${currentItem.id}`;
       break;
     case "vidsrc.me":
-      embedURL = `https://vidsrc.net/embed/${type}/?tmdb=${currentItem.id}`;
+      // Using https://vidsrc.net for security/embed compatibility
+      embedURL = `https://vidsrc.net/embed/${type}/?tmdb=${currentItem.id}`; 
       break;
     case "player.videasy.net":
       embedURL = `https://player.videasy.net/${type}/${currentItem.id}`;
@@ -152,7 +143,7 @@ function updateEmbed() {
 }
 
 function closeModal() {
-  // FIX: Use class toggling for CSS transition and SCROLL UNLOCK
+  // FIX: Use class toggling for visibility and SCROLL UNLOCK
   modalElement.classList.remove('show');
   document.body.classList.remove('modal-open'); 
 
@@ -160,7 +151,7 @@ function closeModal() {
 }
 
 function openSearchModal() {
-  // FIX: Use class toggling for CSS transition and SCROLL LOCK
+  // FIX: Use class toggling for visibility and SCROLL LOCK
   searchModalElement.classList.add('show');
   document.body.classList.add('modal-open'); 
 
@@ -168,17 +159,16 @@ function openSearchModal() {
 }
 
 function closeSearchModal() {
-  // FIX: Use class toggling for CSS transition and SCROLL UNLOCK
+  // FIX: Use class toggling for visibility and SCROLL UNLOCK
   searchModalElement.classList.remove('show');
   document.body.classList.remove('modal-open'); 
 
-  // Clear the search field and results when closing
   searchInput.value = '';
   searchResultsContainer.innerHTML = '';
 }
 
 /**
- * Debounce utility function to limit how often a function is called.
+ * Debounce utility function.
  */
 function debounce(func, delay) {
   let timeout;
@@ -217,7 +207,6 @@ async function searchTMDB() {
   searchResultsContainer.appendChild(fragment);
 }
 
-// Debounced search function to limit API calls
 const debouncedSearch = debounce(searchTMDB, 300);
 
 /* Nav toggle logic for section filtering */
@@ -226,9 +215,6 @@ function setActiveNav(navId) {
   document.getElementById(navId).classList.add('active');
 }
 
-/**
- * Handles navigation clicks to toggle section visibility.
- */
 function handleNavClick(navId, showIds) {
   setActiveNav(navId);
   const allRows = ['row-home', 'row-tv', 'row-anime'];
@@ -246,7 +232,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     fetchTrendingAnime()
   ]);
 
-  // Display content
   if (movies.length) {
       displayBanner(movies[Math.floor(Math.random() * movies.length)]);
       displayList(movies, 'movies-list');
@@ -256,16 +241,11 @@ document.addEventListener('DOMContentLoaded', async () => {
   
   // --- Event Listeners and Delegation ---
   
-  // Navbar search bar: open modal on focus
   document.getElementById('navbar-search').addEventListener('focus', openSearchModal);
-  
-  // Search input inside modal: call debounced search function
   searchInput.addEventListener('input', debouncedSearch);
-
-  // Modal server selector
   serverSelect.addEventListener('change', updateEmbed);
 
-  // Modal close buttons using event delegation (for the close buttons with data-action)
+  // Event delegation for close buttons
   document.addEventListener('click', (e) => {
       if (e.target.dataset.action === 'close-modal') {
           closeModal();
@@ -274,7 +254,7 @@ document.addEventListener('DOMContentLoaded', async () => {
       }
   });
   
-  // Navigation logic using helper function
+  // Navigation logic
   document.getElementById('nav-home').addEventListener('click', (e) => {
     e.preventDefault();
     handleNavClick('nav-home', ['row-home', 'row-tv', 'row-anime']);
@@ -292,7 +272,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     handleNavClick('nav-popular', ['row-home', 'row-anime']);
   });
   
-  // Handle ESC key to close modals
+  // ESC key to close modals
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         if (modalElement.classList.contains('show')) {
